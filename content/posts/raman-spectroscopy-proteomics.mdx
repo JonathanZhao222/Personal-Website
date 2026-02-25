@@ -1,0 +1,59 @@
+---
+title: "Raman Spectroscopy as a Window Into the Proteome"
+date: "2024-12-05"
+excerpt: "Label-free, non-destructive, and information-rich — Raman spectroscopy has long been underutilized in cell biology. Deep learning is beginning to change that."
+tags: ["spectroscopy", "proteomics", "single-cell", "deep learning"]
+published: true
+---
+
+Most of what we know about the proteome comes from mass spectrometry. It's extraordinarily powerful — modern instruments can quantify tens of thousands of proteins from a single sample, with peptide-level resolution. But it requires lysis. The cell is destroyed to measure what was inside it.
+
+This is a fundamental limitation. The proteome is not a static snapshot. It's a dynamic system, responsive to mechanical forces, cell-cell contacts, metabolic state, and position within a tissue. When you lyse a cell to measure it, you've erased the very context that made the measurement meaningful.
+
+Raman spectroscopy offers a different bargain.
+
+## What Raman measures
+
+When a photon strikes a molecule and scatters inelastically, it exits with a different energy than it entered — shifted by an amount corresponding to a vibrational mode of the molecule. This is the Raman effect. The resulting spectrum is, in a very real sense, a molecular fingerprint: each chemical bond vibrates at characteristic frequencies, and the spectrum encodes the sum of all of them.
+
+For a cell, the Raman spectrum integrates signal from everything: lipids, nucleic acids, carbohydrates, and proteins. The protein contribution dominates at most laser wavelengths. Amide bonds, aromatic side chains, disulfide bridges — all of these have distinct spectral signatures that, in principle, encode something about protein identity, secondary structure, and post-translational modification.
+
+The catch has always been interpretation. A raw Raman spectrum from a cell is a dense, overlapping superposition of thousands of molecular signals. Traditional analysis — peak fitting, principal component analysis — can cluster cell types or detect gross compositional differences, but it can't decode the spectrum into the protein-level information that biologists actually want.
+
+## Where deep learning enters
+
+The key insight that my work builds on is that the mapping from proteome to Raman spectrum is a physical process — it's determined by quantum mechanics and molecular geometry. It's complex, but it's not random. If you have enough paired data — Raman spectra and corresponding proteomic measurements from the same cells — a neural network should be able to learn that mapping.
+
+This is easier said than done. The variability in single-cell Raman spectra is substantial, driven by cell cycle state, spatial orientation in the laser focus, and subcellular heterogeneity. The signal-to-noise ratio at single-cell resolution, especially for low-abundance proteins, is unforgiving.
+
+Our approach has been to frame this as a structured prediction problem. Rather than trying to predict full proteomic profiles from spectra, we start with a simpler question: given a spectrum, can we classify the cell's functional state? Can we distinguish a naive T cell from an activated one? A quiescent fibroblast from one undergoing epithelial-mesenchymal transition?
+
+The answer, with appropriate model architectures and careful data collection, is yes — with accuracy that competes with flow cytometry and without any fluorescent labels.
+
+## The non-destructive advantage
+
+What makes this genuinely exciting, beyond the classification accuracy, is what non-destructive measurement enables.
+
+If you can phenotype a cell without killing it, you can track it over time. You can measure the same cell before and after a perturbation. You can select cells with specific phenotypes for downstream culture. You can map cell states spatially across tissue sections without the batch effects that plague proteomics workflows.
+
+There's also an application in manufacturing contexts — cell therapy, cultivated meat, bioreactor monitoring — where you want to continuously measure cell state without perturbing the culture. Raman spectroscopy is already used for this at the bulk level. Single-cell resolution would enable much more precise process control.
+
+## Current limitations and honest assessment
+
+The technology has real limitations that I try not to paper over.
+
+Throughput is the biggest one. A confocal Raman measurement of a single cell takes seconds to minutes, depending on desired signal-to-noise. Flow cytometry can process thousands of cells per second. For applications that need large numbers of cells, Raman spectroscopy is not going to compete on throughput anytime soon.
+
+The depth of proteomic information is also genuinely uncertain. Raman is most sensitive to abundant proteins and dominant structural motifs. Low-abundance signaling proteins — the transcription factors and kinases that drive cellular decisions — may simply not contribute enough signal to be detectable above noise. The limits of what's recoverable from a spectrum are not fully mapped.
+
+And the models are black boxes in the usual sense. Interpretability work — understanding which spectral features are driving predictions — is tractable and important, but it's a separate research problem from building the classifier.
+
+## Why I think it's worth pursuing
+
+Despite those caveats, I keep coming back to a simple observation: we don't have a good way to measure cell state in real time, non-invasively, at single-cell resolution. The technologies that exist either require labels (flow cytometry, imaging with fluorescent reporters), destroy the cell (mass cytometry, single-cell sequencing), or can't resolve individual cells (bulk spectroscopy, metabolic flux analysis).
+
+Raman is imperfect. But it's the closest thing we have to a readout of the intracellular environment that doesn't require you to intervene in the system you're trying to measure. That's a rare property, and it's worth investing in making it work better.
+
+The combination of better optics, more systematic paired datasets, and increasingly capable neural architectures is moving the field faster than I expected when I started this work. I think single-cell Raman spectroscopy will be a routine tool in cell biology labs within a decade. The question is whether the models will be interpretable enough by then to actually teach us biology, or whether they'll remain useful-but-opaque classifiers.
+
+I'm betting on interpretable. That's most of what keeps me in the lab.

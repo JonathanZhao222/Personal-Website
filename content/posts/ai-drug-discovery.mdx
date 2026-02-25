@@ -1,0 +1,47 @@
+---
+title: "How Foundation Models Are Changing Drug Discovery"
+date: "2024-10-20"
+excerpt: "Large language models trained on protein sequences are beginning to compress decades of wet-lab intuition into learnable representations — and the implications for computational biology are profound."
+tags: ["AI", "drug discovery", "protein language models", "comp bio"]
+published: true
+---
+
+For most of the past century, drug discovery followed a recognizable pattern: screen thousands of compounds against a target, hope something binds, then spend a decade and a billion dollars turning that hit into a molecule that works in humans. The success rate at each stage is grim. Less than 10% of drugs entering clinical trials ever reach patients.
+
+What's changed in the last five years is not that the biology got easier. It's that the representations got better.
+
+## Proteins as sequences, sequences as language
+
+The central insight of protein language models is disarmingly simple: a protein sequence is a string of characters drawn from a 20-letter alphabet, and the rules governing which sequences fold into functional structures are not so different from the rules governing which sentences are grammatical.
+
+ESM-2, trained by Meta on 250 million protein sequences, learns to predict masked residues in a sequence — the same pretraining objective as BERT, just applied to amino acids instead of words. What emerges from this training is a representation that encodes evolutionary, structural, and functional information without ever being explicitly told what any of those things are.
+
+When you take the embeddings from a model like this and probe them, you find that they encode secondary structure, solvent accessibility, binding sites, and evolutionary conservation — all from sequence alone. The model hasn't seen PDB structures. It's inferred 3D geometry from 1D text.
+
+## From representation to design
+
+Representation is useful. Design is more interesting.
+
+The move from language models that *understand* sequences to models that *generate* them happened fast. RFdiffusion treats protein backbone generation as a diffusion process — gradually denoising random noise into a structured protein backbone conditioned on a target binding site. ProteinMPNN then designs sequences that fold into that backbone.
+
+What this pipeline enables is remarkable: you can specify a binding pocket on a disease target, run diffusion to generate binders, sequence-design those binders, and filter for sequences that AlphaFold2 predicts will fold correctly. The whole process takes hours on a single GPU. Ten years ago it would have required crystallography, mutagenesis screens, and years of structural biology.
+
+This isn't purely hypothetical. Designed binders against influenza hemagglutinin, RSV F protein, and EGFR have been validated experimentally. The hit rates — the fraction of computationally designed proteins that actually bind the target — are orders of magnitude higher than traditional screening.
+
+## What this means for the biology
+
+I want to be careful not to overclaim. Foundation models in biology are impressive, but they're not magic.
+
+They excel at tasks where evolutionary data is dense — protein folding, function prediction, antibody optimization. They struggle where evolution hasn't explored, because their training signal is fundamentally evolutionary. For truly novel chemical space, or for targets where the biology involves emergent cellular phenomena rather than isolated molecular interactions, the models have much less to say.
+
+The other thing I keep thinking about is the assay bottleneck. Computational tools can now generate and filter protein designs faster than any lab can test them. The limiting factor in structure-based drug design is no longer ideation — it's experimental throughput. High-throughput binding assays, cell-based screens, and eventually automated wet labs need to catch up with the generative models.
+
+## The longer arc
+
+What excites me most about this moment isn't any single model. It's that we're at the beginning of a long compounding curve.
+
+The models will get better. The training data will expand — proteomics, single-cell transcriptomics, spatial biology, clinical outcomes linked to molecular profiles. The experimental feedback loops will tighten as lab automation improves. In ten years, designing a therapeutic protein from scratch will probably look more like engineering software than like traditional drug discovery.
+
+That transition is going to change who can do this work. The barrier is shifting from access to wet-lab infrastructure toward access to compute and data — which are more democratically distributed. I think that's mostly good. Biology is too important to remain in the hands of institutions that can afford billion-dollar screening libraries.
+
+The question is what comes next, after the easy applications are saturated — after every antibody optimization and protein design task has been automated. That's where I think the really interesting biology starts.
