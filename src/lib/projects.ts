@@ -33,5 +33,8 @@ export const projects: Project[] = [
     year: '2024–present',
     tags: [],
     status: 'ongoing',
+    links: [
+      { label: 'Code', url: 'https://github.com/JonathanZhao222/Paralog-Virtual-Cell' },
+    ],
   },
 ]
