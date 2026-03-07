@@ -5,7 +5,7 @@ export const projects: Project[] = [
     id: 'sheltzer-lab',
     title: 'Research @ Sheltzer Lab',
     description: 'Single-cell virtual knockout on paralog dependency.',
-    year: '2024–present',
+    year: '2025–present',
     tags: [],
     status: 'ongoing',
     links: [
