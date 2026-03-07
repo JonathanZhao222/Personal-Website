@@ -2,6 +2,19 @@ import type { Project } from '@/types/project'
 
 export const projects: Project[] = [
   {
+    id: 'sheltzer-lab',
+    title: 'Research @ Sheltzer Lab',
+    description: 'Single-cell virtual knockout on paralog dependency.',
+    year: '2024–present',
+    tags: [],
+    status: 'ongoing',
+    links: [
+      { label: 'Virtual Cell', url: 'https://github.com/JonathanZhao222/Paralog-Virtual-Cell' },
+      { label: 'Expression', url: 'https://github.com/JonathanZhao222/Paralog-Upregulation' },
+      { label: 'RNA/DNA', url: 'https://github.com/JonathanZhao222/Paralog-Difference' },
+    ],
+  },
+  {
     id: 'pfas-pollution',
     title: 'PFAS Pollution Detection and Filtration',
     description:
@@ -25,16 +38,5 @@ export const projects: Project[] = [
     year: '2023–2024',
     tags: [],
     status: 'completed',
-  },
-  {
-    id: 'sheltzer-lab',
-    title: 'Research @ Sheltzer Lab',
-    description: 'Single-cell virtual knockout on paralog dependency.',
-    year: '2024–present',
-    tags: [],
-    status: 'ongoing',
-    links: [
-      { label: 'Code', url: 'https://github.com/JonathanZhao222/Paralog-Virtual-Cell' },
-    ],
   },
 ]
