@@ -3,11 +3,12 @@ import type { Project } from '@/types/project'
 export const projects: Project[] = [
   {
     id: 'sheltzer-lab',
-    title: 'Paralog Dependency Research @ Stanford Sheltzer Lab',
+    title: 'Cancer Aneuploidy Research @ Stanford School of Medicine',
     description: 'Single-cell virtual knockout on paralog dependency.',
     year: '2025–present',
     tags: [],
     status: 'ongoing',
+    link: 'https://www.sheltzerlab.org',
     links: [
       { label: 'Virtual Cell', url: 'https://github.com/JonathanZhao222/Paralog-Virtual-Cell' },
       { label: 'Expression', url: 'https://github.com/JonathanZhao222/Paralog-Upregulation' },
@@ -38,5 +39,6 @@ export const projects: Project[] = [
     year: '2023–2024',
     tags: [],
     status: 'completed',
+    link: 'https://www.cmd.ch.cam.ac.uk/',
   },
 ]
