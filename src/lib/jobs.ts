@@ -11,11 +11,11 @@ export interface Job {
 export const jobs: Job[] = [
   {
     id: 'pumpkinseed',
-    title: 'Machine Learning Engineer',
+    title: 'Incoming ML Engineer',
     company: 'Pumpkinseed',
     companyUrl: 'https://www.pumpkinseed.bio/',
     description: 'Variational Autoencoders (VAEs) for Raman Spectroscopy Fingerprints for protein sequencing.',
-    year: 'Mar 2026–present',
+    year: '',
     status: 'ongoing',
   },
   {
