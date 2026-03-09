@@ -22,31 +22,25 @@ export default function Nav() {
         <div className="flex items-center gap-6">
           {isHome ? (
             <>
-              <a
-                href="#work"
-                className="font-sans text-sm text-black/60 hover:text-black transition-colors"
-              >
+              <a href="#work" className="font-sans text-sm text-black/60 hover:text-black transition-colors">
                 Work
               </a>
-              <a
-                href="#writing"
-                className="font-sans text-sm text-black/60 hover:text-black transition-colors"
-              >
+              <a href="#research" className="font-sans text-sm text-black/60 hover:text-black transition-colors">
+                Research
+              </a>
+              <a href="#writing" className="font-sans text-sm text-black/60 hover:text-black transition-colors">
                 Writing
               </a>
             </>
           ) : (
             <>
-              <Link
-                href="/#work"
-                className="font-sans text-sm text-black/60 hover:text-black transition-colors"
-              >
+              <Link href="/#work" className="font-sans text-sm text-black/60 hover:text-black transition-colors">
                 Work
               </Link>
-              <Link
-                href="/writing"
-                className="font-sans text-sm text-black/60 hover:text-black transition-colors"
-              >
+              <Link href="/#research" className="font-sans text-sm text-black/60 hover:text-black transition-colors">
+                Research
+              </Link>
+              <Link href="/writing" className="font-sans text-sm text-black/60 hover:text-black transition-colors">
                 Writing
               </Link>
             </>

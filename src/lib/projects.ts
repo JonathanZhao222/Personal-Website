@@ -3,7 +3,7 @@ import type { Project } from '@/types/project'
 export const projects: Project[] = [
   {
     id: 'sheltzer-lab',
-    title: 'Research @ Sheltzer Lab',
+    title: 'Paralog Dependency Research @ Stanford Sheltzer Lab',
     description: 'Single-cell virtual knockout on paralog dependency.',
     year: '2025–present',
     tags: [],
@@ -16,7 +16,7 @@ export const projects: Project[] = [
   },
   {
     id: 'pfas-pollution',
-    title: 'PFAS Pollution Detection and Filtration',
+    title: 'PFAS Pollution Research @ CIWEM',
     description:
       'Geospatial NNs to predict PFAS levels & ETDOT-optimised point-of-use filters.',
     year: '2023–present',
@@ -32,9 +32,9 @@ export const projects: Project[] = [
   },
   {
     id: 'alzheimers',
-    title: "Alzheimer's Disease Modelling",
+    title: "Alzheimer's Pathology Research @ Cambridge CMD",
     description:
-      'MD on inhibitors of β-secretase @ Cambridge CMD.',
+      'MD on inhibitors of β-secretase.',
     year: '2023–2024',
     tags: [],
     status: 'completed',
