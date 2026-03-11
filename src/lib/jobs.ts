@@ -23,7 +23,7 @@ export const jobs: Job[] = [
     title: 'Bioinformatics Research Engineer',
     company: 'BabylonBio',
     companyUrl: 'https://babylon.bio/',
-    description: 'Constructing Knowledge Graphs for Swansen Linkage-based drug discovery.',
+    description: 'Discovering new drugs; CDA-protected.',
     year: 'Mar 2026–present',
     status: 'ongoing',
   },
