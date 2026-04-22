@@ -14,7 +14,7 @@ const C_BASE:     [number, number, number] = [232, 140, 108]
 const C_CONNECT:  [number, number, number] = [218, 112, 82]
 
 // ─── Phrase that coalesces alongside the DNA ──────────────────────────────────
-const TEXT_FULL  = 'turning separate ideas into one'
+const TEXT_FULL  = 'connecting the dots...'
 const TEXT_CHARS = TEXT_FULL.split('')   // 31 characters
 
 // ─── Seeded PRNG (LCG) ───────────────────────────────────────────────────────
