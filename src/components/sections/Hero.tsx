@@ -6,7 +6,7 @@ import { DNAHelixCanvas } from '@/components/ui/DNAHelixCanvas'
 import { heroState } from '@/lib/heroState'
 
 const heroName = 'Jonathan Zhao'
-const tagline1 = "I'm a student at Stanford. I research and build in comp bio & neuro."
+const tagline1 = "I'm a student at Stanford. I research and build in comp bio & climate tech."
 const tagline2 = "I also debated for England & Stanford Debate and played piano & organ @ Milan's Duomo Cathedral."
 
 const TYPE_SPEED_MS = 22    // ms per character
