@@ -5,8 +5,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-type Seg = { text: string; href?: string }
-
 function Para({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return (
     <p className={`leading-[1.85] text-[#c4c4c4] ${className}`}>{children}</p>
