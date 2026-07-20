@@ -4,6 +4,7 @@ export interface PostFrontmatter {
   excerpt: string
   tags: string[]
   published: boolean
+  category?: string
 }
 
 export interface Post {
