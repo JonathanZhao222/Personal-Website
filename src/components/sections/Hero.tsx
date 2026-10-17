@@ -104,7 +104,7 @@ export default function Hero() {
 
   const animate = mounted && !shouldReduceMotion
   const nameClass =
-    'm-0 font-serif font-normal text-[clamp(64px,9vw,132px)] leading-[0.92] tracking-[-0.02em]'
+    'm-0 font-serif font-normal text-[clamp(52px,7vw,104px)] leading-[0.92] tracking-[-0.02em]'
 
   return (
     <section id="top" className="relative max-w-plate mx-auto px-6 pt-36 pb-[104px]">
@@ -129,13 +129,13 @@ export default function Hero() {
               <motion.span variants={wordVariants} className="inline-block" aria-hidden="true">
                 Jonathan
               </motion.span>{' '}
-              <motion.span variants={wordVariants} className="inline-block italic text-soft" aria-hidden="true">
+              <motion.span variants={wordVariants} className="inline-block text-soft" aria-hidden="true">
                 Zhao
               </motion.span>
             </motion.h1>
           ) : (
             <h1 className={nameClass}>
-              Jonathan <span className="italic text-soft">Zhao</span>
+              Jonathan <span className="text-soft">Zhao</span>
             </h1>
           )}
 
