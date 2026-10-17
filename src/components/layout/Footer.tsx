@@ -5,11 +5,8 @@ export default function Footer() {
 
   return (
     <footer className="max-w-plate mx-auto px-6">
-      <div className="border-t border-white/10 pt-12 pb-14 flex flex-wrap items-end justify-between gap-8">
-        <div>
-          <p className="font-serif italic text-[40px] leading-none">Say hello.</p>
-          <p className="mt-3 font-mono text-xs text-dim">&copy; {year} Jonathan Zhao</p>
-        </div>
+      <div className="border-t border-white/10 pt-10 pb-12 flex flex-wrap items-center justify-between gap-6">
+        <p className="font-mono text-xs text-dim">&copy; {year} Jonathan Zhao</p>
         <nav aria-label="Contact" className="flex flex-wrap gap-x-7 gap-y-3 font-mono text-[13px]">
           <a href="mailto:jzhao222@stanford.edu" className={linkClass}>
             jzhao222@stanford.edu

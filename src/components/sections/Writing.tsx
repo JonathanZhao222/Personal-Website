@@ -1,12 +1,14 @@
 import Link from 'next/link'
 import { getAllPosts } from '@/lib/posts'
+import { groupPosts } from '@/lib/postGroups'
 import { PostCard } from '@/components/ui/PostCard'
+import { PostFolder } from '@/components/ui/PostFolder'
 import { FadeIn } from '@/components/ui/FadeIn'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 
 export default async function Writing() {
   const posts = await getAllPosts()
-  const latest = posts.slice(0, 4)
+  const { numbers, uncategorized, folders } = groupPosts(posts)
 
   return (
     <section
@@ -28,7 +30,7 @@ export default async function Writing() {
         />
       </FadeIn>
 
-      {latest.length === 0 ? (
+      {posts.length === 0 ? (
         <FadeIn delay={0.08}>
           <p className="font-mono text-xs text-dim border-t border-white/10 pt-6">
             More to come.
@@ -36,9 +38,14 @@ export default async function Writing() {
         </FadeIn>
       ) : (
         <div className="border-t border-white/10">
-          {latest.map((post, i) => (
-            <FadeIn key={post.slug} delay={i * 0.08}>
-              <PostCard post={post} number={posts.length - i} />
+          {folders.map((folder, i) => (
+            <FadeIn key={folder.title} delay={i * 0.08}>
+              <PostFolder {...folder} numbers={numbers} />
+            </FadeIn>
+          ))}
+          {uncategorized.slice(0, 4).map((post, i) => (
+            <FadeIn key={post.slug} delay={(folders.length + i) * 0.08}>
+              <PostCard post={post} number={numbers[post.slug]} />
             </FadeIn>
           ))}
         </div>
