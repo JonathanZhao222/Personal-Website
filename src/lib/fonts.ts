@@ -1,4 +1,4 @@
-import { Instrument_Serif, Inter, Fira_Code } from 'next/font/google'
+import { Instrument_Serif, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
 
 export const instrumentSerif = Instrument_Serif({
   subsets: ['latin'],
@@ -8,15 +8,16 @@ export const instrumentSerif = Instrument_Serif({
   display: 'swap',
 })
 
-export const inter = Inter({
+export const plexSans = IBM_Plex_Sans({
   subsets: ['latin'],
+  weight: ['400', '500'],
   variable: '--font-sans',
   display: 'swap',
 })
 
-export const firaCode = Fira_Code({
+export const plexMono = IBM_Plex_Mono({
   subsets: ['latin'],
-  weight: ['400'],
+  weight: ['400', '500'],
   variable: '--font-mono',
   display: 'swap',
 })

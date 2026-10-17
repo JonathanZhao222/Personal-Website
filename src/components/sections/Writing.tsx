@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { getAllPosts } from '@/lib/posts'
 import { PostCard } from '@/components/ui/PostCard'
 import { FadeIn } from '@/components/ui/FadeIn'
+import { SectionHeader } from '@/components/ui/SectionHeader'
 
 export default async function Writing() {
   const posts = await getAllPosts()
@@ -10,42 +11,38 @@ export default async function Writing() {
   return (
     <section
       id="writing"
-      className="max-w-4xl mx-auto px-6 md:px-8 py-24"
+      className="max-w-plate mx-auto px-6 pb-28 scroll-mt-24"
       aria-labelledby="writing-heading"
     >
       <FadeIn>
-        <h2
+        <SectionHeader
           id="writing-heading"
-          className="font-sans text-xs tracking-widest uppercase text-black/40 mb-10"
-        >
-          Writing
-        </h2>
+          label="4° QUATERNARY"
+          title="Field notes"
+          description="I write about neuroscience, philosophy, and occasionally poems of love."
+          aside={
+            <Link href="/writing" className="text-muted hover:text-accent transition-colors">
+              all {posts.length} entries &rarr;
+            </Link>
+          }
+        />
       </FadeIn>
 
       {latest.length === 0 ? (
         <FadeIn delay={0.08}>
-          <p className="font-sans text-sm text-black/40 border-t border-black/10 pt-6">
+          <p className="font-mono text-xs text-dim border-t border-white/10 pt-6">
             More to come.
           </p>
         </FadeIn>
       ) : (
-        <div className="border-t border-black/10">
+        <div className="border-t border-white/10">
           {latest.map((post, i) => (
             <FadeIn key={post.slug} delay={i * 0.08}>
-              <PostCard post={post} />
+              <PostCard post={post} number={posts.length - i} />
             </FadeIn>
           ))}
         </div>
       )}
-
-      <FadeIn delay={latest.length * 0.08 + 0.08}>
-        <Link
-          href="/writing"
-          className="inline-block mt-8 font-sans text-sm text-black/40 hover:text-black transition-colors"
-        >
-          View all writing &rarr;
-        </Link>
-      </FadeIn>
     </section>
   )
 }

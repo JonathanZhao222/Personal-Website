@@ -2,21 +2,58 @@
 
 import { useState, useEffect } from 'react'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
-import { DNAHelixCanvas } from '@/components/ui/DNAHelixCanvas'
-import { heroState } from '@/lib/heroState'
+import { ProteinFold } from '@/components/ui/ProteinFold'
 
-const heroName = 'Jonathan Zhao'
-const tagline1 = "I'm a student at Stanford. I research and build in comp bio & climate tech."
-const tagline2 = "I also debated for England & Stanford Debate and played piano & organ @ Milan's Duomo Cathedral."
+const inlineLink =
+  'text-ink underline decoration-white/25 underline-offset-[3px] hover:text-accent hover:decoration-accent transition-colors'
 
-const TYPE_SPEED_MS = 22    // ms per character
-const LINE_PAUSE_MS = 380   // pause between the two lines
-const NAME_DELAY_MS = 1150  // wait for name animation before typing starts
+function Ext({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={inlineLink}>
+      {children}
+    </a>
+  )
+}
+
+const bio = [
+  <>
+    I&apos;m a student at Stanford studying Math &amp; CS.
+  </>,
+  <>
+    My current research spans virtual cells and explicit regularisation. And I&apos;m broadly
+    interested in AI for science and ways to understand broad ranges of data.
+  </>,
+  <>
+    Previously, I&apos;ve done research in protein language modelling{' '}
+    @<Ext href="https://www.pumpkinseed.bio/">Pumpkinseed</Ext>, paralog dependency @Stanford and water
+    pollution with the UK government, where I won the{' '}
+    <Ext href="https://stockholmwaterfoundation.org/news/uk-project-to-reduce-pfas-pollution-is-awarded-stockholm-junior-water-prize">
+      Stockholm Junior Water Prize
+    </Ext>{' '}
+    and was featured in{' '}
+    <Ext href="https://www.forbes.com/sites/sanammahoozi/2024/09/06/this-is-what-happened-at-world-water-week-in-stockholm/">
+      Forbes
+    </Ext>
+    .
+  </>,
+  <>
+    In my free time, I sing Baritone for Stanford O-tone and compete for Stanford (and prev. England)
+    Debate.
+  </>,
+]
+
+const facts: { label: string; value: string; live?: boolean }[] = [
+  { label: 'NOW', value: 'Undergraduate, Stanford' },
+  { label: 'CURRENTLY', value: 'Arc Institute', live: true },
+  { label: 'INCOMING', value: 'Bridgewater Associates' },
+  { label: 'IN ANOTHER LIFE', value: 'Organist at Duomo Cathedral' },
+  { label: 'LISTENING TO', value: 'The New Abnormal' },
+]
 
 const containerVariants: Variants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.06, delayChildren: 0.05 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.05 },
   },
 }
 
@@ -28,147 +65,114 @@ const wordVariants: Variants = {
   },
 }
 
-const arrowVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.4, delay: 1.0 } },
+const fadeVariants: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0 },
 }
 
-// ── Blinking cursor span ───────────────────────────────────────────────────────
-function Cursor() {
+// ── Reveal: plain div on SSR / reduced motion, fade-up once mounted ───────────
+function Reveal({
+  animate,
+  delay,
+  className,
+  children,
+}: {
+  animate: boolean
+  delay: number
+  className?: string
+  children: React.ReactNode
+}) {
+  if (!animate) return <div className={className}>{children}</div>
   return (
-    <span
-      aria-hidden="true"
-      className="cursor-blink inline-block w-[1.5px] h-[1em] bg-black/35 ml-[2px] align-middle"
-    />
+    <motion.div
+      className={className}
+      variants={fadeVariants}
+      initial="hidden"
+      animate="visible"
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay }}
+    >
+      {children}
+    </motion.div>
   )
 }
 
-// ── Static shell (SSR + reduced-motion fallback) ───────────────────────────────
-// Shows all text immediately — no animation, no layout shift on first paint.
-function HeroStatic() {
-  return (
-    <section className="relative min-h-screen flex flex-col justify-center">
-      <DNAHelixCanvas />
-      <div className="max-w-4xl mx-auto w-full px-6 md:px-8 pt-14 relative z-10">
-        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-none tracking-tight">
-          {heroName}
-        </h1>
-        <p className="mt-6 font-sans text-base md:text-lg text-black/55 max-w-sm leading-relaxed">
-          {tagline1}
-        </p>
-        <p className="mt-3 font-sans text-base md:text-lg text-black/55 max-w-sm leading-relaxed">
-          {tagline2}
-        </p>
-      </div>
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-black/25 text-sm font-sans select-none z-10">
-        ↓
-      </div>
-    </section>
-  )
-}
-
-// ── Main hero ─────────────────────────────────────────────────────────────────
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion()
-  const [mounted, setMounted]   = useState(false)
-  const [typed1, setTyped1]     = useState('')
-  const [typed2, setTyped2]     = useState('')
-  // Which line is currently receiving the cursor: 1, 2, or null (done)
-  const [cursorOn, setCursorOn] = useState<1 | 2 | null>(null)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => { setMounted(true) }, [])
 
-  // Typewriter sequence — starts after name animation, uses recursive setTimeout
-  // so a single `alive` flag cleanly cancels every pending tick on unmount.
-  useEffect(() => {
-    if (!mounted || shouldReduceMotion) return
-
-    let alive = true
-
-    const startLine2 = () => {
-      if (!alive) return
-      setCursorOn(2)
-      let j = 0
-      const tick2 = () => {
-        if (!alive) return
-        j++
-        setTyped2(tagline2.slice(0, j))
-        if (j < tagline2.length) setTimeout(tick2, TYPE_SPEED_MS)
-        else { setCursorOn(null); heroState.typingDone = true }
-      }
-      tick2()
-    }
-
-    const startLine1 = () => {
-      if (!alive) return
-      setCursorOn(1)
-      let i = 0
-      const tick1 = () => {
-        if (!alive) return
-        i++
-        setTyped1(tagline1.slice(0, i))
-        if (i < tagline1.length) setTimeout(tick1, TYPE_SPEED_MS)
-        else setTimeout(startLine2, LINE_PAUSE_MS)
-      }
-      tick1()
-    }
-
-    const kickoff = setTimeout(startLine1, NAME_DELAY_MS)
-    return () => { alive = false; clearTimeout(kickoff) }
-  }, [mounted, shouldReduceMotion])
-
-  if (!mounted || shouldReduceMotion) return <HeroStatic />
+  const animate = mounted && !shouldReduceMotion
+  const nameClass =
+    'm-0 font-serif font-normal text-[clamp(64px,9vw,132px)] leading-[0.92] tracking-[-0.02em]'
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center">
-      <DNAHelixCanvas />
-      <div className="max-w-4xl mx-auto w-full px-6 md:px-8 pt-14 relative z-10">
+    <section id="top" className="relative max-w-plate mx-auto px-6 pt-36 pb-[104px]">
+      <ProteinFold className="absolute top-28 bottom-6 -right-[8%] w-[min(860px,72%)] max-md:inset-x-0 max-md:w-auto max-md:opacity-50" />
 
-        {/* Name — word-by-word blur-up animation */}
-        <motion.h1
-          className="font-serif text-5xl md:text-7xl lg:text-8xl leading-none tracking-tight"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          aria-label={heroName}
-        >
-          {heroName.split(' ').map((word, i) => (
-            <motion.span
-              key={i}
-              variants={wordVariants}
-              className="inline-block mr-[0.25em] last:mr-0"
-            >
-              {word}
-            </motion.span>
-          ))}
-        </motion.h1>
-
-        {/* Taglines — typewriter reveal */}
-        <p className="mt-6 font-sans text-base md:text-lg text-black/55 max-w-sm leading-relaxed">
-          {typed1}
-          {cursorOn === 1 && <Cursor />}
-        </p>
-        <p className="mt-3 font-sans text-base md:text-lg text-black/55 max-w-sm leading-relaxed">
-          {typed2}
-          {cursorOn === 2 && <Cursor />}
-        </p>
-
+      <div className="relative z-10 flex items-center gap-4 font-mono text-xs tracking-[0.16em] mb-12 pointer-events-none">
+        <span className="text-accent">1° PRIMARY</span>
+        <span aria-hidden="true" className="flex-auto h-px bg-white/10" />
+        <span className="text-dim hidden sm:inline">STANFORD, CA · 37.43° N 122.17° W</span>
       </div>
 
-      <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-black/25 text-sm font-sans select-none z-10"
-        variants={arrowVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <motion.span
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 1.2 }}
-          className="block"
-        >
-          ↓
-        </motion.span>
-      </motion.div>
+      <div className="relative z-10 max-w-[600px]">
+        <div>
+          {animate ? (
+            <motion.h1
+              className={nameClass}
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              aria-label="Jonathan Zhao"
+            >
+              <motion.span variants={wordVariants} className="inline-block" aria-hidden="true">
+                Jonathan
+              </motion.span>{' '}
+              <motion.span variants={wordVariants} className="inline-block italic text-soft" aria-hidden="true">
+                Zhao
+              </motion.span>
+            </motion.h1>
+          ) : (
+            <h1 className={nameClass}>
+              Jonathan <span className="italic text-soft">Zhao</span>
+            </h1>
+          )}
+
+          <Reveal animate={animate} delay={0.35}>
+            <div className="mt-9 max-w-[560px] flex flex-col gap-4 text-[17px] leading-[1.65] text-body">
+              {bio.map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
+            </div>
+          </Reveal>
+
+          <Reveal animate={animate} delay={0.5}>
+            <dl className="mt-12 max-w-[560px] border-t border-white/10">
+              {facts.map((f) => (
+                <div
+                  key={f.label}
+                  className="group flex flex-wrap gap-x-6 gap-y-1 py-3.5 border-b border-white/[0.06] transition-colors duration-300 hover:border-white/15"
+                >
+                  <dt className="flex-[0_0_140px] font-mono text-[11px] tracking-[0.14em] text-dim pt-[3px] transition-colors duration-300 group-hover:text-accent">
+                    {f.label}
+                  </dt>
+                  <dd className="m-0 flex-[1_1_260px] text-[15px] leading-[1.55] text-ink flex items-center gap-2.5">
+                    {f.live && (
+                      <span
+                        aria-hidden="true"
+                        className="shrink-0 w-[7px] h-[7px] rounded-full bg-accent shadow-[0_0_10px_rgb(var(--accent))]"
+                      />
+                    )}
+                    {f.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+        </div>
+
+      </div>
     </section>
   )
 }

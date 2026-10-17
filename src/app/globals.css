@@ -16,16 +16,43 @@
 }
 
 @layer base {
+  :root {
+    --ground: 11 13 13;   /* #0b0d0d */
+    --ink: 230 233 231;   /* #e6e9e7 */
+    --soft: 201 207 204;  /* #c9cfcc */
+    --body: 185 192 189;  /* #b9c0bd */
+    --muted: 154 163 159; /* #9aa39f */
+    --dim: 124 133 129;   /* #7c8581 */
+    --accent: 134 239 172; /* #86efac */
+    color-scheme: dark;
+  }
+
   html {
     scroll-behavior: smooth;
   }
 
   ::selection {
-    background-color: black;
-    color: white;
+    background-color: rgb(var(--accent));
+    color: rgb(var(--ground));
   }
 
   body {
-    @apply bg-white text-black antialiased;
+    @apply bg-ground text-ink font-sans antialiased;
+  }
+}
+
+/* Custom cursor (components/ui/Cursor.tsx) replaces the native one on fine pointers */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+@layer components {
+  /* Faint 32px lab grid behind every page */
+  .lab-grid {
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+    background-size: 32px 32px;
   }
 }

@@ -6,6 +6,10 @@ export interface ProjectLink {
 export interface Project {
   id: string
   title: string
+  /** Where the work happened, shown under the title */
+  institution?: string
+  /** Text for `link`; shown after the institution */
+  linkLabel?: string
   description: string
   year: string
   tags: string[]

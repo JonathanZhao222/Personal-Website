@@ -3,40 +3,40 @@ import type { Post } from '@/types/post'
 
 interface PostCardProps {
   post: Post
+  /** Entry number, shown as "No. 07" */
+  number?: number
 }
 
-function formatDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-}
-
-export function PostCard({ post }: PostCardProps) {
+export function PostCard({ post, number }: PostCardProps) {
   const { slug, frontmatter } = post
 
   return (
-    <Link href={`/writing/${slug}`} className="block group">
-      <div className="flex flex-col md:flex-row md:items-start gap-1 md:gap-8 py-6 border-b border-black/10">
-        <time
-          dateTime={frontmatter.date}
-          className="shrink-0 font-sans text-sm text-black/40 md:w-28 pt-0.5"
-        >
-          {formatDate(frontmatter.date)}
-        </time>
-        <div className="flex-1 min-w-0">
-          <h3 className="font-serif text-lg leading-snug group-hover:translate-x-0.5 transition-transform duration-200">
-            {frontmatter.title}
-          </h3>
-          <p className="mt-1.5 font-sans text-sm text-black/60 leading-relaxed">
-            {frontmatter.excerpt}
-          </p>
-        </div>
-        <span className="shrink-0 font-sans text-xs text-black/30 group-hover:text-black transition-colors mt-0.5 hidden md:block">
-          ↗
+    <Link
+      href={`/writing/${slug}`}
+      className="group flex flex-wrap gap-x-8 gap-y-2 py-7 border-b border-white/10 transition-colors duration-300 hover:bg-white/[0.02]"
+    >
+      <time dateTime={frontmatter.date} className="flex-[0_0_120px] font-mono text-xs text-dim pt-2">
+        {frontmatter.date.replace(/-/g, '.')}
+      </time>
+      <span className="flex-[1_1_520px] min-w-0 flex flex-col gap-2 transition-transform duration-300 ease-out motion-safe:group-hover:translate-x-1.5">
+        <span className="font-serif text-[28px] leading-[1.15] group-hover:text-accent transition-colors">
+          {frontmatter.title}
         </span>
-      </div>
+        <span className="text-[15px] leading-relaxed text-muted max-w-[720px]">
+          {frontmatter.excerpt}
+        </span>
+      </span>
+      {number !== undefined && (
+        <span className="flex-none flex items-center gap-2 font-mono text-xs text-dim pt-2">
+          <span
+            aria-hidden="true"
+            className="text-accent opacity-0 transition-[opacity,transform] duration-300 motion-safe:-translate-x-2 group-hover:opacity-100 motion-safe:group-hover:translate-x-0"
+          >
+            →
+          </span>
+          No. {String(number).padStart(2, '0')}
+        </span>
+      )}
     </Link>
   )
 }

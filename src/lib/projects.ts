@@ -3,8 +3,11 @@ import type { Project } from '@/types/project'
 export const projects: Project[] = [
   {
     id: 'sheltzer-lab',
-    title: 'Cancer Aneuploidy Research @ Stanford School of Medicine',
-    description: 'Single-cell virtual knockout on paralog dependency.',
+    title: 'Cancer Aneuploidy',
+    institution: 'Stanford Cancer Institute',
+    linkLabel: 'Sheltzer Lab',
+    description:
+      'Virtual cells and ML for cancer vulnerabilities: single-cell virtual knockouts on paralog dependency, across 11 datasets (2.6M cells) on Stanford HPC. PIs: Prof Jason Sheltzer & Dr Yi Bei.',
     year: '2025–present',
     tags: [],
     status: 'ongoing',
@@ -17,12 +20,14 @@ export const projects: Project[] = [
   },
   {
     id: 'pfas-pollution',
-    title: 'PFAS Pollution Research @ CIWEM',
+    title: 'PFAS Pollution',
+    institution: 'CIWEM / Xylem / SIWI',
+    linkLabel: 'preprint',
     description:
-      'Geospatial NNs to predict PFAS levels & ETDOT-optimised point-of-use filters.',
-    year: '2023–present',
+      'KNN-RF ensemble predicting PFAS concentrations to within 94% of field-measured values across river sources, translated into a point-of-use filter design validated against USEPA software.',
+    year: '2024–2025',
     tags: [],
-    status: 'ongoing',
+    status: 'completed',
     link: 'https://chemrxiv.org/doi/10.26434/chemrxiv-2024-tx50z',
     award: 'Stockholm Junior Water Prize Winner',
     links: [
@@ -33,9 +38,11 @@ export const projects: Project[] = [
   },
   {
     id: 'alzheimers',
-    title: "Alzheimer's Pathology Research @ Cambridge CMD",
+    title: "Alzheimer's Pathology",
+    institution: 'Cambridge Centre for Misfolding Diseases',
+    linkLabel: 'Cambridge CMD',
     description:
-      'MD on inhibitors of β-secretase.',
+      'Large-scale molecular dynamics of protein–ligand interactions and a docking-based virtual screen for β-secretase inhibitors in Alzheimer\'s.',
     year: '2023–2024',
     tags: [],
     status: 'completed',

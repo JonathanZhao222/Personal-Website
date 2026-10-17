@@ -1,36 +1,36 @@
+const linkClass = 'text-muted hover:text-accent transition-colors'
+
 export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="max-w-4xl mx-auto px-6 md:px-8 py-12 mt-20">
-      <div className="border-t border-black/10 pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <span className="font-sans text-sm text-black/40">
-          &copy; {year} Jonathan Zhao
-        </span>
-        <div className="flex items-center gap-6">
-          <a
-            href="mailto:jzhao222@stanford.edu"
-            className="font-sans text-sm text-black/40 hover:text-black transition-colors"
-          >
-            Email
+    <footer className="max-w-plate mx-auto px-6">
+      <div className="border-t border-white/10 pt-12 pb-14 flex flex-wrap items-end justify-between gap-8">
+        <div>
+          <p className="font-serif italic text-[40px] leading-none">Say hello.</p>
+          <p className="mt-3 font-mono text-xs text-dim">&copy; {year} Jonathan Zhao</p>
+        </div>
+        <nav aria-label="Contact" className="flex flex-wrap gap-x-7 gap-y-3 font-mono text-[13px]">
+          <a href="mailto:jzhao222@stanford.edu" className={linkClass}>
+            jzhao222@stanford.edu
           </a>
           <a
             href="https://github.com/JonathanZhao222/"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-sans text-sm text-black/40 hover:text-black transition-colors"
+            className={linkClass}
           >
-            GitHub
+            GitHub ↗
           </a>
           <a
             href="https://www.linkedin.com/in/jonathan-zhao-818832236/"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-sans text-sm text-black/40 hover:text-black transition-colors"
+            className={linkClass}
           >
-            LinkedIn
+            LinkedIn ↗
           </a>
-        </div>
+        </nav>
       </div>
     </footer>
   )

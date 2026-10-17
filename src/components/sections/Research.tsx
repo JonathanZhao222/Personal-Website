@@ -1,6 +1,7 @@
 import type { Project } from '@/types/project'
 import { ProjectCard } from '@/components/ui/ProjectCard'
 import { FadeIn } from '@/components/ui/FadeIn'
+import { SectionHeader } from '@/components/ui/SectionHeader'
 
 interface ResearchProps {
   projects: Project[]
@@ -10,21 +11,21 @@ export default function Research({ projects }: ResearchProps) {
   return (
     <section
       id="research"
-      className="max-w-4xl mx-auto px-6 md:px-8 py-24"
+      className="max-w-plate mx-auto px-6 pb-28 scroll-mt-24"
       aria-labelledby="research-heading"
     >
       <FadeIn>
-        <h2
+        <SectionHeader
           id="research-heading"
-          className="font-sans text-xs tracking-widest uppercase text-black/40 mb-10"
-        >
-          Research
-        </h2>
+          label="3° TERTIARY"
+          title="Research"
+          aside={`${projects.length} projects`}
+        />
       </FadeIn>
-      <div className="border-t border-black/10">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
         {projects.map((project, i) => (
-          <FadeIn key={project.id} delay={i * 0.08}>
-            <ProjectCard project={project} />
+          <FadeIn key={project.id} delay={i * 0.08} className="flex">
+            <ProjectCard project={project} index={i} />
           </FadeIn>
         ))}
       </div>

@@ -36,14 +36,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-function formatDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-}
-
 export default async function PostPage({ params }: Props) {
   const posts = await getAllPosts()
   const post = posts.find((p) => p.slug === params.slug)
@@ -52,30 +44,30 @@ export default async function PostPage({ params }: Props) {
   const { content } = await getPostContent(params.slug)
 
   return (
-    <article className="max-w-2xl mx-auto px-6 md:px-8 pt-28 pb-24">
+    <article className="max-w-2xl mx-auto px-6 pt-36 pb-28">
       <Link
         href="/writing"
-        className="inline-block font-sans text-sm text-black/40 hover:text-black transition-colors mb-12"
+        className="inline-block font-mono text-xs text-muted hover:text-accent transition-colors mb-12"
       >
-        ← Writing
+        ← /writing
       </Link>
 
-      <header className="mb-12">
-        <h1 className="font-serif text-3xl md:text-4xl leading-tight mb-4">
+      <header className="mb-12 pb-8 border-b border-white/10">
+        <h1 className="font-serif text-4xl md:text-5xl leading-[1.1] mb-5">
           {post.frontmatter.title}
         </h1>
         <div className="flex flex-wrap items-center gap-4">
           <time
             dateTime={post.frontmatter.date}
-            className="font-sans text-sm text-black/40"
+            className="font-mono text-xs text-dim"
           >
-            {formatDate(post.frontmatter.date)}
+            {post.frontmatter.date.replace(/-/g, '.')}
           </time>
           <div className="flex flex-wrap gap-1.5">
             {post.frontmatter.tags.map((tag) => (
               <span
                 key={tag}
-                className="font-sans text-xs text-black/40 border border-black/15 px-2 py-0.5"
+                className="font-mono text-[11px] text-muted border border-white/[0.12] px-2 py-0.5"
               >
                 {tag}
               </span>
@@ -84,7 +76,7 @@ export default async function PostPage({ params }: Props) {
         </div>
       </header>
 
-      <div className="prose-content">
+      <div className="prose-content select-text">
         <MDXRemote source={content} components={mdxComponents} />
       </div>
     </article>

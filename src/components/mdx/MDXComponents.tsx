@@ -18,7 +18,7 @@ export const mdxComponents: MDXComponents = {
     </h3>
   ),
   p: ({ children }) => (
-    <p className="mb-5 leading-relaxed text-black/80">{children}</p>
+    <p className="mb-5 leading-relaxed text-body">{children}</p>
   ),
   a: ({ href, children }) => {
     const isExternal = href?.startsWith('http')
@@ -28,7 +28,7 @@ export const mdxComponents: MDXComponents = {
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="underline underline-offset-2 decoration-black/30 hover:decoration-black transition-colors"
+          className="underline underline-offset-2 decoration-white/25 hover:text-accent hover:decoration-accent transition-colors"
         >
           {children}
         </a>
@@ -37,36 +37,36 @@ export const mdxComponents: MDXComponents = {
     return (
       <Link
         href={href ?? '/'}
-        className="underline underline-offset-2 decoration-black/30 hover:decoration-black transition-colors"
+        className="underline underline-offset-2 decoration-white/25 hover:text-accent hover:decoration-accent transition-colors"
       >
         {children}
       </Link>
     )
   },
   blockquote: ({ children }) => (
-    <blockquote className="border-l-2 border-black/20 pl-4 my-6 text-black/60 italic">
+    <blockquote className="border-l border-accent/60 pl-4 my-6 text-muted italic">
       {children}
     </blockquote>
   ),
   code: ({ children }) => (
-    <code className="font-mono text-sm bg-black/5 px-1.5 py-0.5 rounded">
+    <code className="font-mono text-sm bg-white/[0.05] px-1.5 py-0.5 rounded">
       {children}
     </code>
   ),
   pre: ({ children }) => (
-    <pre className="font-mono text-sm bg-black/5 p-4 rounded overflow-x-auto my-6">
+    <pre className="font-mono text-sm bg-white/[0.05] p-4 rounded overflow-x-auto my-6">
       {children}
     </pre>
   ),
   ul: ({ children }) => (
-    <ul className="list-disc list-outside ml-5 mb-5 space-y-1.5 text-black/80">
+    <ul className="list-disc list-outside ml-5 mb-5 space-y-1.5 text-body">
       {children}
     </ul>
   ),
   ol: ({ children }) => (
-    <ol className="list-decimal list-outside ml-5 mb-5 space-y-1.5 text-black/80">
+    <ol className="list-decimal list-outside ml-5 mb-5 space-y-1.5 text-body">
       {children}
     </ol>
   ),
-  hr: () => <hr className="border-black/10 my-10" />,
+  hr: () => <hr className="border-white/10 my-10" />,
 }

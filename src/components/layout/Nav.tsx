@@ -3,46 +3,33 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+const linkClass = 'text-muted hover:text-accent transition-colors'
+
 export default function Nav() {
   const pathname = usePathname()
   const isHome = pathname === '/'
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-black/5">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-ground/85 backdrop-blur-sm">
       <nav
-        className="max-w-4xl mx-auto px-6 md:px-8 h-14 flex items-center justify-between"
+        className="max-w-plate mx-auto px-6 h-20 flex flex-wrap items-center justify-between gap-4 border-b border-white/[0.08] font-mono text-[13px]"
         aria-label="Main navigation"
       >
-        <Link
-          href="/"
-          className="font-serif text-base hover:opacity-60 transition-opacity"
-        >
+        <Link href="/" className="font-medium tracking-[0.04em] hover:text-accent transition-colors">
           Jonathan Zhao
         </Link>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-7">
           {isHome ? (
             <>
-              <a href="#work" className="font-sans text-sm text-black/60 hover:text-black transition-colors">
-                Work
-              </a>
-              <a href="#research" className="font-sans text-sm text-black/60 hover:text-black transition-colors">
-                Research
-              </a>
-              <a href="#writing" className="font-sans text-sm text-black/60 hover:text-black transition-colors">
-                Writing
-              </a>
+              <a href="#work" className={linkClass}>/work</a>
+              <a href="#research" className={linkClass}>/research</a>
+              <a href="#writing" className={linkClass}>/writing</a>
             </>
           ) : (
             <>
-              <Link href="/#work" className="font-sans text-sm text-black/60 hover:text-black transition-colors">
-                Work
-              </Link>
-              <Link href="/#research" className="font-sans text-sm text-black/60 hover:text-black transition-colors">
-                Research
-              </Link>
-              <Link href="/writing" className="font-sans text-sm text-black/60 hover:text-black transition-colors">
-                Writing
-              </Link>
+              <Link href="/#work" className={linkClass}>/work</Link>
+              <Link href="/#research" className={linkClass}>/research</Link>
+              <Link href="/writing" className={linkClass}>/writing</Link>
             </>
           )}
         </div>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { getAllPosts } from '@/lib/posts'
 import { PostCard } from '@/components/ui/PostCard'
 import { FadeIn } from '@/components/ui/FadeIn'
+import { SectionHeader } from '@/components/ui/SectionHeader'
 
 export const metadata: Metadata = {
   title: 'Writing',
@@ -19,26 +20,32 @@ export default async function WritingPage() {
         .filter((c): c is string => Boolean(c))
     )
   )
+  const numberOf = (slug: string) => posts.length - posts.findIndex((p) => p.slug === slug)
 
   return (
-    <div className="max-w-4xl mx-auto px-6 md:px-8 pt-28 pb-20">
+    <div className="max-w-plate mx-auto px-6 pt-36 pb-28">
       <FadeIn>
-        <h1 className="font-sans text-xs tracking-widest uppercase text-black/40 mb-10">
-          Writing
-        </h1>
+        <SectionHeader
+          as="h1"
+          id="writing-heading"
+          label="4° QUATERNARY"
+          title="Field notes"
+          description="I write about neuroscience, philosophy, and occasionally poems of love."
+          aside={`${posts.length} entries`}
+        />
       </FadeIn>
 
       {posts.length === 0 ? (
-        <p className="font-sans text-sm text-black/40 py-12 border-t border-black/10">
+        <p className="font-mono text-xs text-dim py-12 border-t border-white/10">
           No posts yet. Check back soon.
         </p>
       ) : (
         <>
           {uncategorized.length > 0 && (
-            <div className="border-t border-black/10 mb-16">
+            <div className="border-t border-white/10 mb-16">
               {uncategorized.map((post, i) => (
                 <FadeIn key={post.slug} delay={i * 0.08}>
-                  <PostCard post={post} />
+                  <PostCard post={post} number={numberOf(post.slug)} />
                 </FadeIn>
               ))}
             </div>
@@ -51,14 +58,14 @@ export default async function WritingPage() {
             return (
               <div key={category} className="mb-16">
                 <FadeIn>
-                  <h2 className="font-sans text-xs tracking-widest uppercase text-black/40 mb-4">
+                  <h2 className="font-mono text-xs tracking-[0.16em] uppercase text-accent mb-4">
                     {category}
                   </h2>
                 </FadeIn>
-                <div className="border-t border-black/10">
+                <div className="border-t border-white/10">
                   {categoryPosts.map((post, i) => (
                     <FadeIn key={post.slug} delay={i * 0.08}>
-                      <PostCard post={post} />
+                      <PostCard post={post} number={numberOf(post.slug)} />
                     </FadeIn>
                   ))}
                 </div>
