@@ -20,7 +20,7 @@ export default async function Writing() {
         <SectionHeader
           id="writing-heading"
           label="4° QUATERNARY"
-          title="Field notes"
+          title="Fragments"
           description="I write about neuroscience, philosophy, and occasionally poems of love."
           aside={
             <Link href="/writing" className="text-muted hover:text-accent transition-colors">

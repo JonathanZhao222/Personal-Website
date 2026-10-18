@@ -23,7 +23,7 @@ export default async function WritingPage() {
           as="h1"
           id="writing-heading"
           label="4° QUATERNARY"
-          title="Field notes"
+          title="Fragments"
           description="I write about neuroscience, philosophy, and occasionally poems of love."
           aside={`${posts.length} entries`}
         />
