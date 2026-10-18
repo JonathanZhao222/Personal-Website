@@ -111,7 +111,7 @@ export default function Hero() {
       <ProteinFold className="absolute top-28 bottom-6 -right-[8%] w-[min(860px,72%)] max-md:inset-x-0 max-md:w-auto max-md:opacity-50" />
 
       <div className="relative z-10 flex items-center gap-4 font-mono text-xs tracking-[0.16em] mb-12 pointer-events-none">
-        <span className="text-accent">1° PRIMARY</span>
+        <span className="text-accent">1°</span>
         <span aria-hidden="true" className="flex-auto h-px bg-white/10" />
         <span className="text-dim hidden sm:inline">STANFORD, CA · 37.43° N 122.17° W</span>
       </div>

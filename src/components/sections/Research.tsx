@@ -17,7 +17,7 @@ export default function Research({ projects }: ResearchProps) {
       <FadeIn>
         <SectionHeader
           id="research-heading"
-          label="3° TERTIARY"
+          label="3°"
           title="Research"
           aside={`${projects.length} projects`}
         />

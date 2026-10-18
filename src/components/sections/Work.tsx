@@ -58,7 +58,7 @@ export default function Work() {
       <FadeIn>
         <SectionHeader
           id="work-heading"
-          label="2° SECONDARY"
+          label="2°"
           title="Work"
           aside={`${jobs.length} roles`}
         />

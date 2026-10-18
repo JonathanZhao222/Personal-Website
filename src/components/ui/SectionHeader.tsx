@@ -1,6 +1,6 @@
 interface SectionHeaderProps {
   id: string
-  /** Structure-level label, e.g. "2° SECONDARY" */
+  /** Structure-level label, e.g. "2°" */
   label: string
   title: string
   /** Right-hand annotation: plain text or a link */

@@ -19,7 +19,7 @@ export default async function Writing() {
       <FadeIn>
         <SectionHeader
           id="writing-heading"
-          label="4° QUATERNARY"
+          label="4°"
           title="Fragments"
           description="I write about neuroscience, philosophy, and occasionally poems of love."
           aside={
